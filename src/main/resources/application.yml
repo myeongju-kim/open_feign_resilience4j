@@ -1,0 +1,12 @@
+spring:
+  application:
+    name=demo
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+  circuitbreaker:
+    enabled: true
