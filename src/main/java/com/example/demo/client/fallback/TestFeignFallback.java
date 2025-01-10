@@ -19,6 +19,6 @@ public class TestFeignFallback implements TestFeignClient {
 
     @Override
     public String adminLogin(LoginRequest request) {
-        return "님은 관리자가 아닙니다.";
+        return request.name() + "님은 관리자가 아닙니다.";
     }
 }

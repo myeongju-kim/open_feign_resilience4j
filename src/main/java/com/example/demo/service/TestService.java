@@ -36,19 +36,12 @@ public class TestService {
 
     @CircuitBreaker(name = "testCircuitBreaker", fallbackMethod = "fallback")
     public CommonResponse<String> getMessageByAdminServer(String name) {
-        throw new RuntimeException();
-//        if (!StringUtils.hasText(name)) {
-//            return CommonResponse.fail(400, "이름은 비어있을 수 없습니다.");
-//        }
-//        LoginRequest loginRequest = new LoginRequest(name);
-//        String loginMessage = testFeignClient.adminLogin(loginRequest);
-//
-//        return CommonResponse.success(loginMessage);
-    }
+        if (!StringUtils.hasText(name)) {
+            return CommonResponse.fail(400, "이름은 비어있을 수 없습니다.");
+        }
+        LoginRequest loginRequest = new LoginRequest(name);
+        String loginMessage = testFeignClient.adminLogin(loginRequest);
 
-    public CommonResponse<String> fallback(String name, Throwable throwable) {
-        System.out.println("====================== fallback ======================");
-        return CommonResponse.fail(500, "외부연동을 다시봐주세요.");
+        return CommonResponse.success(loginMessage);
     }
-
 }

@@ -6,7 +6,6 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@CircuitBreaker(name = "testCircuitBreaker")
 @FeignClient(value = "members", url = "http://localhost:8080/members/")
 public interface TestFeignClient {
 
@@ -17,5 +16,10 @@ public interface TestFeignClient {
     String logout(@RequestBody LoginRequest request);
 
     @PostMapping("/admin/login")
+    @CircuitBreaker(name = "testCircuitBreaker", fallbackMethod = "fallback")
     String adminLogin(@RequestBody LoginRequest request);
+
+    default String fallback(LoginRequest request) {
+        return request.name() + "님은 관리자가 아닙니다.";
+    }
 }

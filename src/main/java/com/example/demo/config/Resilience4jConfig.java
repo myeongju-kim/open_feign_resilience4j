@@ -19,13 +19,11 @@ public class Resilience4jConfig {
                 CircuitBreakerConfig.custom()
                         .failureRateThreshold(50)
                         .slowCallRateThreshold(50)
-                        .slowCallDurationThreshold(Duration.ofSeconds(3))
                         .permittedNumberOfCallsInHalfOpenState(3)
                         .maxWaitDurationInHalfOpenState(Duration.ofSeconds(3))
                         .slidingWindowType(COUNT_BASED)
                         .slidingWindowSize(10)
                         .minimumNumberOfCalls(5)
-                        .waitDurationInOpenState(Duration.ofSeconds(1))
                         .build()
         );
     }
